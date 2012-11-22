@@ -1,6 +1,6 @@
-{$mode objfpc}
+{$mode objfpc}{$longstrings on}
 program lysp;
-uses gc;
+uses gc, ln;
 
 {-- lisp data structures --}
 
@@ -103,8 +103,15 @@ var
 
 {-- read-eval-print loop --}
 
-  procedure repl;
+  procedure completion( const buf : string; var comps : ln.Completions );
   begin
+  end;
+
+  procedure repl;
+    var line : string = '';
+  begin
+    ln.on_complete := @completion;
+    writeln( ln.prompt( '-> ', line ));
   end;
 
 {-- main code --}
