@@ -1,4 +1,4 @@
-{$mode objfpc}{$longstrings on}
+{$i xpc.inc}
 program lysp;
 uses gc, ln;
 
@@ -12,7 +12,8 @@ type
 
 var
   readers : array[ char ] of reader;
-
+  main_prompt : string = '--> ';
+  more_prompt : string = '... ';
 
 {-- reader --}
 
@@ -84,6 +85,15 @@ var
     use( @read_semi,   ';' );
   end;
 
+  function parse( line : string; var expr : cell ): boolean;
+  begin result := true;
+  end;
+
+{-- garbage collection callbacks --}
+
+  procedure eval( expr, result :  cell );
+  begin
+  end;
 
 {-- garbage collection callbacks --}
 
@@ -108,10 +118,20 @@ var
   end;
 
   procedure repl;
-    var line : string = '';
+    var line, prompt : string; expr, result : cell;
   begin
+    prompt := main_prompt;
     ln.on_complete := @completion;
-    writeln( ln.prompt( '-> ', line ));
+    while ln.prompt( prompt, line ) do begin
+      writeln;
+      prompt := main_prompt;
+      if parse( line, expr ) then
+        begin
+	  eval( expr, result );
+	end
+      else prompt := more_prompt
+    end;
+    writeln;
   end;
 
 {-- main code --}
