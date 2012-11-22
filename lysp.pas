@@ -95,10 +95,25 @@ var
   begin
   end;
 
+{-- predefined symbols --}
+
+  procedure init_globals;
+  begin
+  end;
+
+{-- read-eval-print loop --}
+
+  procedure repl;
+  begin
+  end;
+
 {-- main code --}
 
 begin
   gc.mark := @mark;
   gc.free := @free;
   init_readers;
+  //  todo : dynamic library calls
+  init_globals;
+  repl;
 end.
