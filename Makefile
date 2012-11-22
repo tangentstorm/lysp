@@ -1,4 +1,4 @@
-FPC = fpc -Fu./lib/linenoise -FE./gen -gl
+FPC = fpc -Fi./lib/linenoise -Fu./lib/linenoise -FE./gen -gl -B
 
 targets:
 	@echo 'targets:'
