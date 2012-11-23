@@ -1,4 +1,4 @@
-{$i xpc.inc}
+{$i xpc.inc} {$macro on}
 program lysp;
 uses gc, ln;
 
@@ -34,7 +34,9 @@ type
     constructor make_exp( exp, env : cell );
   end;
   chargen = procedure ( var ch : char );
-  reader = function ( next : chargen ) : cell;
+
+  {$define as_reader := ( next : chargen ) : cell }
+  reader = function as_reader;
 
 var
   readers : array[ char ] of reader;
@@ -73,47 +75,47 @@ var
 
 {-- reader --}
 
-  function read_illegal( next : chargen ) : cell;
+  function read_illegal as_reader;
   begin
   end;
 
-  function read_blank( next : chargen ) : cell;
+  function read_blank as_reader;
   begin
   end;
 
-  function read_digit( next : chargen ) : cell;
+  function read_digit as_reader;
   begin
   end;
 
-  function read_alpha( next : chargen ) : cell;
+  function read_alpha as_reader;
   begin
   end;
 
-  function read_sign( next : chargen ) : cell;
+  function read_sign as_reader;
   begin
   end;
 
-  function read_string( next : chargen ) : cell;
+  function read_string as_reader;
   begin
   end;
 
-  function read_quote( next : chargen ) : cell;
+  function read_quote as_reader;
   begin
   end;
 
-  function read_qquote( next : chargen ) : cell;
+  function read_qquote as_reader;
   begin
   end;
 
-  function read_uquote( next : chargen ) : cell;
+  function read_uquote as_reader;
   begin
   end;
 
-  function read_list( next : chargen ) : cell;
+  function read_list as_reader;
   begin
   end;
 
-  function read_semi( next : chargen ) : cell;
+  function read_semi as_reader;
   begin
   end;
 
